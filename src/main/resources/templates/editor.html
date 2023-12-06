@@ -70,10 +70,12 @@
 </header>
 <main>
     <div class="button-container">
-        <input type="text" name="filename" id="filename">
+        <label for="filename">저장할파일</label>
+        <input type="text" name="filename" id="filename" placeholder="저장할파일명 입력">
         <input type="hidden" name="filename2" id="filename2" >
+        <br>
         <label for="downloadName">파일이름</label>
-        <input type="text" name="downloadName" id="downloadName" placeholder="다운받을파일명입력">
+        <input type="text" name="downloadName" id="downloadName" placeholder="다운받을파일명 입력">
         <label for="extension">파일확장자</label>
         <select id="extension">
             <option value=".html">.html</option>
@@ -158,10 +160,11 @@
 
         let filename = document.getElementById("downloadName").value;
         let extension = document.getElementById("extension").value;
-
+        let custom = document.getElementById("customExtension").value;
         // 사용자가 입력한 파일명과 조합된 확장자를 설정
-        let fullFilename = filename + extension;
-
+        let fullFilename = filename + extension +custom;
+        console.log(extension);
+        console.log(custom);
         // 파일 이름이 유효한지 확인
         if (!isValidFilename(filename)) {
             alert("파일명에는 특수 문자 및 일부 예약어를 사용할 수 없습니다.");
@@ -372,7 +375,6 @@
                 })
                     .then(response => {
                         const fileContent = response.data;
-                        const codeEl = document.querySelector("[data-code]").contentWindow.document;
                         const matchResult = fileContent.match(/<style>([\s\S]*?)<\/style>|<body>([\s\S]*?)<\/body>|<script>([\s\S]*?)<\/script>/g);
 
                         if (matchResult) {
